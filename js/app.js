@@ -2,11 +2,11 @@
   File: app.js
   Author: Daniel Frey
 */
-'use strict'
+'use strict';
 
 //Global Variables
-var storeLocations = [];
-var hours = ['6 am','7 am','8 am','9 am','10 am','11 am','12 pm','1 pm','2 pm','3 pm','4 pm','5 pm','6 pm','7 pm'];
+const storeLocations = [];
+const hours = ['6 am','7 am','8 am','9 am','10 am','11 am','12 pm','1 pm','2 pm','3 pm','4 pm','5 pm','6 pm','7 pm'];
 
 function initialize(){
   console.log('In initialize');
@@ -33,14 +33,14 @@ function generateLocationsArray(){
     salesByHour: [],
     totalSales: 0,
     generateCustomersArray: function(){
-      let customersThisHour
+      let customersThisHour;
       for (let i = 0; i < hours.length; i++) {
-         customersThisHour = Math.floor(Math.random()*(this.maxCustomers - this.minCustomers) + this.minCustomers);
-         this.customersByHour.push(customersThisHour);
+        customersThisHour = Math.floor(Math.random()*(this.maxCustomers - this.minCustomers + 1) + this.minCustomers);
+        this.customersByHour.push(customersThisHour);
       }
     },
     generateSalesArray: function(){
-      let cookiesSold
+      let cookiesSold;
       for (let i = 0; i < hours.length; i++) {
         cookiesSold = Math.floor(this.avgCookieSale * this.customersByHour[i]);
         this.salesByHour.push(cookiesSold);
@@ -48,10 +48,10 @@ function generateLocationsArray(){
     },
     generateTotalSales: function(){
       for (let i = 0; i < hours.length; i++) {
-        this.totalSales += this.salesByHour[i]        ;
+        this.totalSales += this.salesByHour[i];
       }
     }
-  }
+  };
   storeLocations.push(seattle);
   let tokyo = {
     locationName: 'Tokyo',
@@ -62,14 +62,14 @@ function generateLocationsArray(){
     salesByHour: [],
     totalSales: 0,
     generateCustomersArray: function(){
-      let customersThisHour
+      let customersThisHour;
       for (let i = 0; i < hours.length; i++) {
-         customersThisHour = Math.floor(Math.random()*(this.maxCustomers - this.minCustomers) + this.minCustomers);
-         this.customersByHour.push(customersThisHour);
+        customersThisHour = Math.floor(Math.random()*(this.maxCustomers - this.minCustomers + 1) + this.minCustomers);
+        this.customersByHour.push(customersThisHour);
       }
     },
     generateSalesArray: function(){
-      let cookiesSold
+      let cookiesSold;
       for (let i = 0; i < hours.length; i++) {
         cookiesSold = Math.floor(this.avgCookieSale * this.customersByHour[i]);
         this.salesByHour.push(cookiesSold);
@@ -77,10 +77,10 @@ function generateLocationsArray(){
     },
     generateTotalSales: function(){
       for (let i = 0; i < hours.length; i++) {
-        this.totalSales += this.salesByHour[i]        ;
+        this.totalSales += this.salesByHour[i];
       }
     }
-  }
+  };
   storeLocations.push(tokyo);
   let dubai = {
     locationName: 'Dubai',
@@ -91,14 +91,14 @@ function generateLocationsArray(){
     salesByHour: [],
     totalSales: 0,
     generateCustomersArray: function(){
-      let customersThisHour
+      let customersThisHour;
       for (let i = 0; i < hours.length; i++) {
-         customersThisHour = Math.floor(Math.random()*(this.maxCustomers - this.minCustomers) + this.minCustomers);
-         this.customersByHour.push(customersThisHour);
+        customersThisHour = Math.floor(Math.random()*(this.maxCustomers - this.minCustomers + 1) + this.minCustomers);
+        this.customersByHour.push(customersThisHour);
       }
     },
     generateSalesArray: function(){
-      let cookiesSold
+      let cookiesSold;
       for (let i = 0; i < hours.length; i++) {
         cookiesSold = Math.floor(this.avgCookieSale * this.customersByHour[i]);
         this.salesByHour.push(cookiesSold);
@@ -106,10 +106,10 @@ function generateLocationsArray(){
     },
     generateTotalSales: function(){
       for (let i = 0; i < hours.length; i++) {
-        this.totalSales += this.salesByHour[i]        ;
+        this.totalSales += this.salesByHour[i];
       }
     }
-  }
+  };
   storeLocations.push(dubai);
   let paris = {
     locationName: 'Paris',
@@ -120,14 +120,14 @@ function generateLocationsArray(){
     salesByHour: [],
     totalSales: 0,
     generateCustomersArray: function(){
-      let customersThisHour
+      let customersThisHour;
       for (let i = 0; i < hours.length; i++) {
-         customersThisHour = Math.floor(Math.random()*(this.maxCustomers - this.minCustomers) + this.minCustomers);
-         this.customersByHour.push(customersThisHour);
+        customersThisHour = Math.floor(Math.random()*(this.maxCustomers - this.minCustomers + 1) + this.minCustomers);
+        this.customersByHour.push(customersThisHour);
       }
     },
     generateSalesArray: function(){
-      let cookiesSold
+      let cookiesSold;
       for (let i = 0; i < hours.length; i++) {
         cookiesSold = Math.floor(this.avgCookieSale * this.customersByHour[i]);
         this.salesByHour.push(cookiesSold);
@@ -135,10 +135,10 @@ function generateLocationsArray(){
     },
     generateTotalSales: function(){
       for (let i = 0; i < hours.length; i++) {
-        this.totalSales += this.salesByHour[i]        ;
+        this.totalSales += this.salesByHour[i];
       }
     }
-  }
+  };
   storeLocations.push(paris);
   let lima = {
     locationName: 'Lima',
@@ -149,14 +149,14 @@ function generateLocationsArray(){
     salesByHour: [],
     totalSales: 0,
     generateCustomersArray: function(){
-      let customersThisHour
+      let customersThisHour;
       for (let i = 0; i < hours.length; i++) {
-         customersThisHour = Math.floor(Math.random()*(this.maxCustomers - this.minCustomers) + this.minCustomers);
-         this.customersByHour.push(customersThisHour);
+        customersThisHour = Math.floor(Math.random()*(this.maxCustomers - this.minCustomers + 1) + this.minCustomers);
+        this.customersByHour.push(customersThisHour);
       }
     },
     generateSalesArray: function(){
-      let cookiesSold
+      let cookiesSold;
       for (let i = 0; i < hours.length; i++) {
         cookiesSold = Math.floor(this.avgCookieSale * this.customersByHour[i]);
         this.salesByHour.push(cookiesSold);
@@ -164,10 +164,10 @@ function generateLocationsArray(){
     },
     generateTotalSales: function(){
       for (let i = 0; i < hours.length; i++) {
-        this.totalSales += this.salesByHour[i]        ;
+        this.totalSales += this.salesByHour[i];
       }
     }
-  }
+  };
   storeLocations.push(lima);
 }
 function buildSalesDisplay(locationIndex){
@@ -178,14 +178,14 @@ function buildSalesDisplay(locationIndex){
   article.appendChild(h2);
   //sales list
   let ul = document.createElement('ul');
-    for (let i = 0; i < hours.length; i++) {
-      let li = document.createElement('li');
-      li.innerText = `${hours[i]}: ${storeLocations[locationIndex].salesByHour[i]} cookies`;
-      ul.appendChild(li);
-    }
+  for (let i = 0; i < hours.length; i++) {
     let li = document.createElement('li');
-    li.innerText = `Total: ${storeLocations[locationIndex].totalSales} cookies`;
+    li.innerText = `${hours[i]}: ${storeLocations[locationIndex].salesByHour[i]} cookies`;
     ul.appendChild(li);
+  }
+  let li = document.createElement('li');
+  li.innerText = `Total: ${storeLocations[locationIndex].totalSales} cookies`;
+  ul.appendChild(li);
   article.appendChild(ul);
   return article;
 }
