@@ -9,6 +9,7 @@ const storeLocations = [];
 const hours = ['6 am','7 am','8 am','9 am','10 am','11 am','12 pm','1 pm','2 pm','3 pm','4 pm','5 pm','6 pm','7 pm'];
 const hourlyTotals = [];
 let grandTotalSales = 0;
+const salesTable = document.createElement('table');
 
 // generateLocationsArray();
 function CreateLocation(locationName, min, max, avgSales){
@@ -39,6 +40,21 @@ CreateLocation.prototype.generateTotalSales = function(){
     this.totalSales += this.salesByHour[i];
   }
 };
+CreateLocation.prototype.buildTableRow = function(){
+  let locationRow = document.createElement('tr');
+  let locationCell = document.createElement('th');
+  locationCell.innerText = this.locationName;
+  locationRow.appendChild(locationCell);
+  for (let i = 0; i < hours.length; i++) {
+    let salesCell = document.createElement('td');
+    salesCell.innerText = this.salesByHour[i];
+    locationRow.appendChild(salesCell);
+  }
+  let totalLocationSales = document.createElement('td');
+  totalLocationSales.innerText = this.totalSales;
+  locationRow.appendChild(totalLocationSales);
+  salesTable.appendChild(locationRow);
+};
 
 const seattle = new CreateLocation('Seattle',23,65,6.3);
 storeLocations.push(seattle);
@@ -57,7 +73,7 @@ for (let i = 0; i < storeLocations.length; i++) {
   storeLocations[i].generateTotalSales();
 }
 calculateHourlyTotals();
-buildSalesTable();
+renderSalesTable();
 // let salesTable;
 // let parentElement = document.getElementById('salesInfo');
 // for (let i = 0; i < storeLocations.length; i++) {
@@ -75,9 +91,16 @@ function calculateHourlyTotals(){
     grandTotalSales += subTotal;
   }
 }
-function buildSalesTable(){
-  let parentElement = document.getElementById('salesInfo');
-  let salesTable = document.createElement('table');
+function renderSalesTable(){
+  let parentElement = document.getElementById('displayTable');
+  buildHeaderRow();
+  for (let i = 0; i < storeLocations.length; i++) {
+    storeLocations[i].buildTableRow();
+  }
+  buildFootRow();
+  parentElement.appendChild(salesTable);
+}
+function buildHeaderRow(){
   let tableFirstRow = document.createElement('thead');
   let locationHeader = document.createElement('th');
   locationHeader.innerText = 'Location';
@@ -91,32 +114,18 @@ function buildSalesTable(){
   totalCell.innerText = 'Total';
   tableFirstRow.appendChild(totalCell);
   salesTable.appendChild(tableFirstRow);
-  for (let i = 0; i < storeLocations.length; i++) {
-    let locationRow = document.createElement('tr');
-    let locationCell = document.createElement('th');
-    locationCell.innerText = storeLocations[i].locationName;
-    locationRow.appendChild(locationCell);
-    for (let ii = 0; ii < hours.length; ii++) {
-      let salesCell = document.createElement('td');
-      salesCell.innerText = storeLocations[i].salesByHour[ii];
-      locationRow.appendChild(salesCell);
-    }
-    let totalLocationSales = document.createElement('td');
-    totalLocationSales.innerText = storeLocations[i].totalSales;
-    locationRow.appendChild(totalLocationSales);
-    salesTable.appendChild(locationRow);
-  }
-  parentElement.appendChild(salesTable);
+}
+function buildFootRow(){
   let tableTotalRow = document.createElement('tfoot');
   let hourlyTotalCell = document.createElement('th');
   hourlyTotalCell.innerText = 'Total';
   tableTotalRow.appendChild(hourlyTotalCell);
   for (let i = 0; i < hourlyTotals.length; i++) {
-    let tableTotals = document.createElement('td');
+    let tableTotals = document.createElement('th');
     tableTotals.innerText = hourlyTotals[i];
     tableTotalRow.appendChild(tableTotals);
   }
-  let grandTotalCell = document.createElement('td');
+  let grandTotalCell = document.createElement('th');
   grandTotalCell.innerText = grandTotalSales;
   tableTotalRow.appendChild(grandTotalCell);
   salesTable.appendChild(tableTotalRow);
