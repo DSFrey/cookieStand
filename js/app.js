@@ -54,11 +54,58 @@ for (let i = 0; i < storeLocations.length; i++) {
   storeLocations[i].generateSalesArray();
   storeLocations[i].generateTotalSales();
 }
-let salesTable;
-let main = document.getElementById('salesInfo');
-for (let i = 0; i < storeLocations.length; i++) {
-  salesTable = buildSalesDisplay(i);
-  main.appendChild(salesTable);
+buildSalesTable();
+// let salesTable;
+// let parentElement = document.getElementById('salesInfo');
+// for (let i = 0; i < storeLocations.length; i++) {
+//   salesTable = buildSalesDisplay(i);
+//   parentElement.appendChild(salesTable);
+// }
+function buildSalesTable(){
+  let parentElement = document.getElementById('salesInfo');
+  let salesTable = document.createElement('table');
+  let tableFirstRow = document.createElement('thead');
+  let locationHeader = document.createElement('th');
+  locationHeader.innerText = 'Location';
+  tableFirstRow.appendChild(locationHeader);
+  for (let i = 0; i < hours.length; i++) {
+    let tableHeader = document.createElement('th');
+    tableHeader.innerText = hours[i];
+    tableFirstRow.appendChild(tableHeader);
+  }
+  let totalCell = document.createElement('th');
+  totalCell.innerText = 'Total';
+  tableFirstRow.appendChild(totalCell);
+  salesTable.appendChild(tableFirstRow);
+  for (let i = 0; i < storeLocations.length; i++) {
+    let locationRow = document.createElement('tr');
+    let locationCell = document.createElement('th');
+    locationCell.innerText = storeLocations[i].locationName;
+    locationRow.appendChild(locationCell);
+    for (let ii = 0; ii < hours.length; ii++) {
+      let salesCell = document.createElement('td');
+      salesCell.innerText = storeLocations[i].salesByHour[ii];
+      locationRow.appendChild(salesCell);
+    }
+    let totalLocationSales = document.createElement('td');
+    totalLocationSales.innerText = storeLocations[i].totalSales;
+    locationRow.appendChild(totalLocationSales);
+    salesTable.appendChild(locationRow);
+  }
+  parentElement.appendChild(salesTable);
+  let tableTotalRow = document.createElement('tfoot');
+  let hourlyTotals = document.createElement('th');
+  hourlyTotals.innerText = 'Total';
+  tableTotalRow.appendChild(hourlyTotals);
+  for (let i = 0; i < hours.length; i++) {
+    let tableTotals = document.createElement('td');
+    tableTotals.innerText = hours[i];
+    tableTotalRow.appendChild(tableTotals);
+  }
+  let grandTotalCell = document.createElement('td');
+  grandTotalCell.innerText = 'Total';
+  tableTotalRow.appendChild(grandTotalCell);
+  salesTable.appendChild(tableTotalRow);
 }
 
 // function generateLocationsArray(){
@@ -207,22 +254,22 @@ for (let i = 0; i < storeLocations.length; i++) {
 //   };
 //   storeLocations.push(lima);
 // }
-function buildSalesDisplay(locationIndex){
-  //use the document object to create an article element
-  let article = document.createElement('article');
-  let h2 = document.createElement('h2');
-  h2.innerText = storeLocations[locationIndex].locationName;
-  article.appendChild(h2);
-  //sales list
-  let ul = document.createElement('ul');
-  for (let i = 0; i < hours.length; i++) {
-    let li = document.createElement('li');
-    li.innerText = `${hours[i]}: ${storeLocations[locationIndex].salesByHour[i]} cookies`;
-    ul.appendChild(li);
-  }
-  let li = document.createElement('li');
-  li.innerText = `Total: ${storeLocations[locationIndex].totalSales} cookies`;
-  ul.appendChild(li);
-  article.appendChild(ul);
-  return article;
-}
+// function buildSalesDisplay(locationIndex){
+//   //use the document object to create an article element
+//   let article = document.createElement('article');
+//   let h2 = document.createElement('h2');
+//   h2.innerText = storeLocations[locationIndex].locationName;
+//   article.appendChild(h2);
+//   //sales list
+//   let ul = document.createElement('ul');
+//   for (let i = 0; i < hours.length; i++) {
+//     let li = document.createElement('li');
+//     li.innerText = `${hours[i]}: ${storeLocations[locationIndex].salesByHour[i]} cookies`;
+//     ul.appendChild(li);
+//   }
+//   let li = document.createElement('li');
+//   li.innerText = `Total: ${storeLocations[locationIndex].totalSales} cookies`;
+//   ul.appendChild(li);
+//   article.appendChild(ul);
+//   return article;
+// }
