@@ -12,7 +12,12 @@ const hourlyTotals = [];
 let grandTotalSales = 0;
 const salesTable = document.createElement('table');
 
-// generateLocationsArray();
+/**
+ * @param {string} locationName - Name of store location
+ * @param {number} min - Minimum customers in an hour
+ * @param {number} max - Maximum costomers in an hour
+ * @param {number} avgSales - Average cookies sold to each customer
+ */
 function CreateLocation(locationName, min, max, avgSales){
   this.locationName = locationName;
   this.minCustomers = min;
@@ -44,6 +49,7 @@ CreateLocation.prototype.generateTotalSales = function(){
 CreateLocation.prototype.buildTableRow = function(){
   let locationRow = document.createElement('tr');
   let locationCell = document.createElement('th');
+  locationCell.setAttribute('scope','row');
   locationCell.innerText = this.locationName;
   locationRow.appendChild(locationCell);
   for (let i = 0; i < hours.length; i++) {
@@ -52,6 +58,7 @@ CreateLocation.prototype.buildTableRow = function(){
     locationRow.appendChild(salesCell);
   }
   let totalLocationSales = document.createElement('td');
+  totalLocationSales.setAttribute('class','total');
   totalLocationSales.innerText = this.totalSales;
   locationRow.appendChild(totalLocationSales);
   salesTable.appendChild(locationRow);
@@ -104,14 +111,17 @@ function renderSalesTable(){
 function buildHeaderRow(){
   let tableFirstRow = document.createElement('thead');
   let locationHeader = document.createElement('th');
+  locationHeader.setAttribute('scope','col');
   locationHeader.innerText = 'Location';
   tableFirstRow.appendChild(locationHeader);
   for (let i = 0; i < hours.length; i++) {
     let tableHeader = document.createElement('th');
+    tableHeader.setAttribute('scope','col');
     tableHeader.innerText = hours[i];
     tableFirstRow.appendChild(tableHeader);
   }
   let totalCell = document.createElement('th');
+  totalCell.setAttribute('scope','col');
   totalCell.innerText = 'Total';
   tableFirstRow.appendChild(totalCell);
   salesTable.appendChild(tableFirstRow);
@@ -119,14 +129,17 @@ function buildHeaderRow(){
 function buildFootRow(){
   let tableTotalRow = document.createElement('tfoot');
   let hourlyTotalCell = document.createElement('th');
+  hourlyTotalCell.setAttribute('scope','row');
   hourlyTotalCell.innerText = 'Total';
   tableTotalRow.appendChild(hourlyTotalCell);
   for (let i = 0; i < hourlyTotals.length; i++) {
     let tableTotals = document.createElement('th');
+    tableTotals.setAttribute('class','total');
     tableTotals.innerText = hourlyTotals[i];
     tableTotalRow.appendChild(tableTotals);
   }
   let grandTotalCell = document.createElement('th');
+  grandTotalCell.setAttribute('class','total');
   grandTotalCell.innerText = grandTotalSales;
   tableTotalRow.appendChild(grandTotalCell);
   salesTable.appendChild(tableTotalRow);
