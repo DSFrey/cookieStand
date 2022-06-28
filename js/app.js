@@ -7,6 +7,8 @@
 //Global Variables
 const storeLocations = [];
 const hours = ['6 am','7 am','8 am','9 am','10 am','11 am','12 pm','1 pm','2 pm','3 pm','4 pm','5 pm','6 pm','7 pm'];
+const hourlyTotals = [];
+let grandTotalSales = 0;
 
 // generateLocationsArray();
 function CreateLocation(locationName, min, max, avgSales){
@@ -54,6 +56,7 @@ for (let i = 0; i < storeLocations.length; i++) {
   storeLocations[i].generateSalesArray();
   storeLocations[i].generateTotalSales();
 }
+calculateHourlyTotals();
 buildSalesTable();
 // let salesTable;
 // let parentElement = document.getElementById('salesInfo');
@@ -61,6 +64,17 @@ buildSalesTable();
 //   salesTable = buildSalesDisplay(i);
 //   parentElement.appendChild(salesTable);
 // }
+function calculateHourlyTotals(){
+
+  for (let i = 0; i < hours.length; i++) {
+    let subTotal = 0;
+    for (let ii = 0; ii < storeLocations.length; ii++) {
+      subTotal += storeLocations[ii].salesByHour[i];
+    }
+    hourlyTotals.push(subTotal);
+    grandTotalSales += subTotal;
+  }
+}
 function buildSalesTable(){
   let parentElement = document.getElementById('salesInfo');
   let salesTable = document.createElement('table');
@@ -94,16 +108,16 @@ function buildSalesTable(){
   }
   parentElement.appendChild(salesTable);
   let tableTotalRow = document.createElement('tfoot');
-  let hourlyTotals = document.createElement('th');
-  hourlyTotals.innerText = 'Total';
-  tableTotalRow.appendChild(hourlyTotals);
-  for (let i = 0; i < hours.length; i++) {
+  let hourlyTotalCell = document.createElement('th');
+  hourlyTotalCell.innerText = 'Total';
+  tableTotalRow.appendChild(hourlyTotalCell);
+  for (let i = 0; i < hourlyTotals.length; i++) {
     let tableTotals = document.createElement('td');
-    tableTotals.innerText = hours[i];
+    tableTotals.innerText = hourlyTotals[i];
     tableTotalRow.appendChild(tableTotals);
   }
   let grandTotalCell = document.createElement('td');
-  grandTotalCell.innerText = 'Total';
+  grandTotalCell.innerText = grandTotalSales;
   tableTotalRow.appendChild(grandTotalCell);
   salesTable.appendChild(tableTotalRow);
 }
