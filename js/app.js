@@ -6,7 +6,8 @@
 
 //Global Variables
 const storeLocations = [];
-const hours = ['6 am','7 am','8 am','9 am','10 am','11 am','12 pm','1 pm','2 pm','3 pm','4 pm','5 pm','6 pm','7 pm'];
+const hours = ['6 am','7 am','8 am','9 am','10 am','11 am','12 pm','1 pm','2 pm','3 pm','4 pm','5 pm','6 pm','7 pm','8 pm'];
+const trafficModifier = [0.5, 0.75, 1.0, 0.6, 0.8, 1.0, 0.7, 0.4, 0.6, 0.9, 0.7, 0.5, 0.3, 0.4, 0.6];
 const hourlyTotals = [];
 let grandTotalSales = 0;
 const salesTable = document.createElement('table');
@@ -24,14 +25,14 @@ function CreateLocation(locationName, min, max, avgSales){
 CreateLocation.prototype.generateCustomersArray = function(){
   let customersThisHour;
   for (let i = 0; i < hours.length; i++) {
-    customersThisHour = Math.floor(Math.random()*(this.maxCustomers - this.minCustomers + 1) + this.minCustomers);
+    customersThisHour = Math.floor(Math.random()*(this.maxCustomers - this.minCustomers + 1) + this.minCustomers) * trafficModifier[i];
     this.customersByHour.push(customersThisHour);
   }
 };
 CreateLocation.prototype.generateSalesArray = function(){
   let cookiesSold;
   for (let i = 0; i < hours.length; i++) {
-    cookiesSold = Math.floor(this.avgCookieSale * this.customersByHour[i]);
+    cookiesSold = Math.round(this.avgCookieSale * this.customersByHour[i]);
     this.salesByHour.push(cookiesSold);
   }
 };
