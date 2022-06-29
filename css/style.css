@@ -1,20 +1,19 @@
 table {
   table-layout: fixed;
   width: 100%;
-  border: 3px lime;
   border-collapse: collapse;
 }
 td:nth-child(odd){
   background-color: aliceblue;
 }
 td, th {
-  border: slategray;
+  border: 2px slategray solid;
   padding: 1em;
   text-align: right;
 }
 th{
   background-color: lightgray;
 }
-.total {
+td.total, th.total{
   background-color: lightgreen;
 }
