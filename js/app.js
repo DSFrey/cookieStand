@@ -8,9 +8,10 @@
 const storeLocations = [];
 const hours = ['6 am','7 am','8 am','9 am','10 am','11 am','12 pm','1 pm','2 pm','3 pm','4 pm','5 pm','6 pm','7 pm','8 pm'];
 const trafficModifier = [0.5, 0.75, 1.0, 0.6, 0.8, 1.0, 0.7, 0.4, 0.6, 0.9, 0.7, 0.5, 0.3, 0.4, 0.6];
-const hourlyTotals = [];
+let hourlyTotals = [];
 let grandTotalSales = 0;
-const salesTable = document.createElement('table');
+let salesTable = document.getElementById('displayTable');
+const dataSubmission = document.getElementById('dataSubmission');
 
 /**
  * @param {string} locationName - Name of store location
@@ -28,6 +29,7 @@ function CreateLocation(locationName, min, max, avgSales){
   this.totalSales = 0;
 }
 CreateLocation.prototype.generateCustomersArray = function(){
+  this.customersByHour = [];
   let customersThisHour;
   for (let i = 0; i < hours.length; i++) {
     customersThisHour = Math.floor(Math.random()*(this.maxCustomers - this.minCustomers + 1) + this.minCustomers) * trafficModifier[i];
@@ -35,6 +37,7 @@ CreateLocation.prototype.generateCustomersArray = function(){
   }
 };
 CreateLocation.prototype.generateSalesArray = function(){
+  this.salesByHour = [];
   let cookiesSold;
   for (let i = 0; i < hours.length; i++) {
     cookiesSold = Math.round(this.avgCookieSale * this.customersByHour[i]);
@@ -42,6 +45,7 @@ CreateLocation.prototype.generateSalesArray = function(){
   }
 };
 CreateLocation.prototype.generateTotalSales = function(){
+  this.totalSales = 0;
   for (let i = 0; i < hours.length; i++) {
     this.totalSales += this.salesByHour[i];
   }
@@ -64,27 +68,31 @@ CreateLocation.prototype.buildTableRow = function(){
   salesTable.appendChild(locationRow);
 };
 
-const seattle = new CreateLocation('Seattle',23,65,6.3);
+let seattle = new CreateLocation('Seattle',23,65,6.3);
 storeLocations.push(seattle);
-const tokyo = new CreateLocation('Tokyo',3,24,1.2);
+let tokyo = new CreateLocation('Tokyo',3,24,1.2);
 storeLocations.push(tokyo);
-const dubai = new CreateLocation('Dubai',11,38,3.7);
+let dubai = new CreateLocation('Dubai',11,38,3.7);
 storeLocations.push(dubai);
-const paris = new CreateLocation('Paris',20,38,2.3);
+let paris = new CreateLocation('Paris',20,38,2.3);
 storeLocations.push(paris);
-const lima = new CreateLocation('Lima',2,16,4.6);
+let lima = new CreateLocation('Lima',2,16,4.6);
 storeLocations.push(lima);
+initialize();
 
-for (let i = 0; i < storeLocations.length; i++) {
-  storeLocations[i].generateCustomersArray();
-  storeLocations[i].generateSalesArray();
-  storeLocations[i].generateTotalSales();
+function initialize() {
+  for (let i = 0; i < storeLocations.length; i++) {
+    storeLocations[i].generateCustomersArray();
+    storeLocations[i].generateSalesArray();
+    storeLocations[i].generateTotalSales();
+  }
+  calculateHourlyTotals();
+  renderSalesTable();
 }
-calculateHourlyTotals();
-renderSalesTable();
 
 function calculateHourlyTotals(){
-
+  hourlyTotals = [];
+  grandTotalSales = 0;
   for (let i = 0; i < hours.length; i++) {
     let subTotal = 0;
     for (let ii = 0; ii < storeLocations.length; ii++) {
@@ -95,13 +103,12 @@ function calculateHourlyTotals(){
   }
 }
 function renderSalesTable(){
-  let parentElement = document.getElementById('displayTable');
+  salesTable.innerHTML = '';
   buildHeaderRow();
   for (let i = 0; i < storeLocations.length; i++) {
     storeLocations[i].buildTableRow();
   }
   buildFootRow();
-  parentElement.appendChild(salesTable);
 }
 function buildHeaderRow(){
   let tableFirstRow = document.createElement('thead');
@@ -138,4 +145,32 @@ function buildFootRow(){
   grandTotalCell.innerText = grandTotalSales;
   tableTotalRow.appendChild(grandTotalCell);
   salesTable.appendChild(tableTotalRow);
+}
+
+dataSubmission.addEventListener('submit',updateLocationData);
+function updateLocationData(evt) {
+  evt.preventDefault();
+  let isNewLocation = true;
+  let locationName = document.getElementById('locationName').value;
+  let minCustomers = parseInt(document.getElementById('minCustomers').value);
+  let maxCustomers = parseInt(document.getElementById('maxCustomers').value);
+  let avgCookieSale = parseInt(document.getElementById('avgCookieSale').value);
+  if(minCustomers > maxCustomers) {
+    alert('Minimum customers cannot be greater than maximum customers');
+    return;
+  }
+  for (let i = 0; i < storeLocations.length; i++) {
+    if(storeLocations[i].locationName === locationName) {
+      storeLocations[i].minCustomers = minCustomers;
+      storeLocations[i].maxCustomers = maxCustomers;
+      storeLocations[i].avgCookieSale = avgCookieSale;
+      isNewLocation = false;
+      break;
+    }
+  }
+  if (isNewLocation) {
+    let newLocation = new CreateLocation(locationName,minCustomers,maxCustomers,avgCookieSale);
+    storeLocations.push(newLocation);
+  }
+  initialize();
 }

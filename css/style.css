@@ -57,8 +57,10 @@ footer img {
 }
 table {
   table-layout: fixed;
-  width: 100%;
+  min-width: 80%;
+  margin: auto;
   border-collapse: collapse;
+  background-color: whitesmoke;
 }
 td:nth-child(odd){
   background-color: aliceblue;

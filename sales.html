@@ -20,26 +20,42 @@
       </ul>
       </nav>
     </header>
-    <main id="displayTable">
-        <!-- generate this from js: -->
+    <table id="displayTable">
+
+    </table>
+    <main>
+      <h2>Add or Change Sales Data</h2>
+      <form id="dataSubmission">
+        <label for="locationName">Location</label><br>
+        <input type="text" id="locationName" name="locationName" required><br>
+        <label for="minCustomers">Minimum Customers per Hour</label><br>
+        <input type="number" id="minCustomers" name="minCustomers" required><br>
+        <label for="maxCustomers">Maximum Customers per Hour</label><br>
+        <input type="number" id="maxCustomers" name="maxCustomers" required><br>
+        <label for="avgCookieSales">Average Cookies Sold per Customer</label><br>
+        <input type="number" id="avgCookieSale" name="avgCookieSale" required><br>
+        <input type="submit" value="Update Sales Data">
+      </form>
     </main>
     <footer>
-      <section>
-        <img src="img/chinook.jpg">
-      </section>
-      <section>
-        <ul>
-          <li>&copy; 2022 Pat's Salmon Cookies</li>
-          <li>555 Wherever Ave Seattle, WA</li>
-          <li>1-555-555-5555</li>
-        </ul>
-      </section>
-      <section>
-        <ul>
-          <li><a href="sales.html">Sales</a></li>
-          <li><a href="processing.html">Order Processing</a></li>
-        </ul>
-      </section>
+      <div id="footblock">
+        <section>
+          <img src="img/chinook.jpg">
+        </section>
+        <section>
+          <ul>
+            <li>&copy; 2022 Pat's Salmon Cookies</li>
+            <li>555 Wherever Ave Seattle, WA</li>
+            <li>1-555-555-5555</li>
+          </ul>
+        </section>
+        <section>
+          <ul>
+            <li><a href="sales.html">Sales</a></li>
+            <li><a href="processing.html">Order Processing</a></li>
+          </ul>
+        </section>
+      </div>
     </footer>
     <script src="js/app.js" defer></script>
   </body>
