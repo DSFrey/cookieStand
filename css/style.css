@@ -30,33 +30,62 @@ body {
   background-color: salmon;
 }
 main {
-  width: 1000px;
+  max-width: 1000px;
   margin: auto;
   padding: 20px;
   background-color: rgba(250, 235, 215, 0.8);
   font-family: Georgia, 'Times New Roman', Times, serif;
+  color: hsl(0, 0%, 20%);
+}
+img {
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
 }
 h1 {
-  font-size: 50px;
+  margin: 20px;
+  font-size: 90px;
   text-align: center;
   font-family: 'Arima', cursive;
+  font-weight: 600;
+  color: #224F96;
 }
 h2 {
-  font-size: 30px;
+  font-size: 60px;
   text-align: center;
-}
-h3 {
-  font-size: 20px;
-}
-section {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  font-family: 'Arima', cursive;
+  font-weight: 400;
+  color: #224F96;
   margin: 20px;
 }
-main div {
-  margin: 0 0 20px 0;
+a:link h2, a:visited h2 {
+  color: #5A97FA;
+  text-decoration: underline;
+}
+h3 {
+  font-size: 35px;
+  margin: 10px;
+}
+p {
+  font-size: 1.2rem;
+  line-height: 1.5em;
+}
+#summary {
+  margin: 40px 20px 40px 20px;
+}
+#locationlist {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+}
+#locationlist div {
+  margin: 0 10px 20px 10px;
   text-align: center
+}
+.adImage {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 footer {
@@ -69,6 +98,18 @@ footer section {
 }
 footer img {
   width: 333px;
+}
+footer li {
+  margin: 0 30px;
+  color:rgb(250,214,195);
+  font-size: 20px;
+  line-height: 1.5em;
+}
+footer a:link, a:visited {
+  text-decoration: underline;
+  font-size: 30px;
+  line-height: 1.5em;
+  color:antiquewhite
 }
 #footblock {
   display: flex;
@@ -96,4 +137,10 @@ th{
 }
 td.total, th.total{
   background-color: lightgreen;
+}
+input {
+  margin: 5px 10px 20px 10px;
+}
+label {
+  margin: 10px 10px 5px 10px;
 }
